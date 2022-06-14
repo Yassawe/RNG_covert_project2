@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <x86intrin.h>
 
+//this is just used to time and calibrate different things, it has no relation to covert channel
+
+
 struct timespec timer_start(){
     struct timespec start_time;
     clock_gettime(CLOCK_REALTIME, &start_time);
@@ -17,7 +20,7 @@ long timer_end(struct timespec start_time){
     return diffInNanos;
 }
 
-#define ITER 10
+#define ITER 8
 
 int main(){
 
@@ -28,7 +31,6 @@ int main(){
     
     for(i=0; i<ITER; ++i){
         _rdseed32_step(&r);
-        usleep(1);
     }
 
     long time = timer_end(vartime);

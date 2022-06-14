@@ -19,7 +19,7 @@ long timer_end(struct timespec start_time){
 
 
 
-#define READBITS 100
+#define READBITS 16
 #define PROBE 8
 
 int main(){
@@ -43,7 +43,7 @@ int main(){
 
     }
 
-    // DISPLAY:
+    // DECODE:
     for(int i =0; i<READBITS; ++i){
         int sum = 0;
 

@@ -50,8 +50,6 @@ int main(){
         for (int j = 0; j<PROBE; ++j){
             sum+=buffer[i*PROBE+j];
         }
-        // printf("sum = %d\n", sum);
-
         if (sum<PROBE){
             printf("1");    
         }

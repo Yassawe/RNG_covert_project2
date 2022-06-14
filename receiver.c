@@ -20,28 +20,46 @@ long timer_end(struct timespec start_time){
 
 
 #define READBITS 100
+#define PROBE 8
 
 int main(){
     unsigned int r;
-    int* buffer = (int *)malloc(READBITS*sizeof(int));
+    int* buffer = (int *)malloc(READBITS*PROBE*sizeof(int));
     
+    // SYNC
     while((int)(time(NULL))%10);
 
     printf("Started receiving...\n");
-    
+
+
+    // RECEIVE
     usleep(25);
-
-    for(int i = 0; i<READBITS; ++i){    
-
-
-        buffer[i] = _rdseed32_step(&r);
-
+    for(int i = 0; i<READBITS; ++i){
+        
+        for(int j=0; j<PROBE; ++j){
+            buffer[i*PROBE + j] = _rdseed32_step(&r);
+        }
         usleep(50);
+
     }
 
+    // DISPLAY:
     for(int i =0; i<READBITS; ++i){
-        printf("%d", buffer[i]);
+        int sum = 0;
+
+        for (int j = 0; j<PROBE; ++j){
+            sum+=buffer[i*PROBE+j];
+        }
+        // printf("sum = %d\n", sum);
+
+        if (sum<PROBE){
+            printf("1");    
+        }
+        else{
+            printf("0");
+        }
     }
+    printf("\n");
         
 
     return 0;

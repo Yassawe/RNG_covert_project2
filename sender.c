@@ -18,17 +18,13 @@ long timer_end(struct timespec start_time){
     return diffInNanos;
 }
 
-
-
-
-
 #define ITER 1000  
 
 
 int main(){
     
     unsigned int r;
-    char* secret = "0100100010101001010";
+    char* secret = "11100011100011100001100011000100101010001";
     printf("Secret is: %s\n", secret);
 
     while((int)(time(NULL))%10);

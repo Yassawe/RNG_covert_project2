@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include <unistd.h>
 #include <x86intrin.h>
 
 struct timespec timer_start(){
@@ -16,7 +17,7 @@ long timer_end(struct timespec start_time){
     return diffInNanos;
 }
 
-#define ITER 1000
+#define ITER 10
 
 int main(){
 
@@ -27,6 +28,7 @@ int main(){
     
     for(i=0; i<ITER; ++i){
         _rdseed32_step(&r);
+        usleep(1);
     }
 
     long time = timer_end(vartime);

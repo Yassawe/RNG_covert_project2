@@ -1,32 +1,29 @@
 #include <x86intrin.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include <sched.h>
 
-
-#define DUR 10000  
+#define DUR 1000  
 
 
 int main(){
+    
     unsigned int r;
+    char* secret = "0110010100100100100";
 
-    while((int)(time(NULL))%10); //sync
-
-    printf("Starting sending...\n"); 
-
-    while(1){
-        _rdseed32_step(&r);
+    for(int i = 0; i<strlen(secret); ++i){
+        if (secret[i] == "0"){
+            usleep(0.336);
+        }
+        else{
+            for(int j=0; j<DUR; j++){
+                _rdseed32_step(&r);
+            }
+        }
     }
-
-    // for(int i = 0; i<strlen(secret); ++i){
-    //     for(int j; j<DUR; ++j){
-    //         if (secret[i]=='0'){
-    //             _rdseed32_step(&r);
-    //         }
-    //     }
-    //     sleep(0.01);
-    // }
 
     return 0;
 }

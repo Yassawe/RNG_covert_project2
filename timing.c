@@ -20,17 +20,17 @@ long timer_end(struct timespec start_time){
 
 int main(){
 
-    unsigned long long r;
+    unsigned int r;
     int i = 0;
 
     struct timespec vartime = timer_start();
     
     for(i=0; i<ITER; ++i){
-        _rdseed64_step(&r);
+        _rdseed32_step(&r);
     }
 
     long time = timer_end(vartime);
 
-    printf("RDSEED instruction latency = %ld ns\n", (time/ITER));
+    printf("time = %ld ns\n", (time));
 
 }
